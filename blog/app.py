@@ -2,6 +2,7 @@ from flask import Flask, g
 from blog.user import views
 from blog.models.database import db
 from flask_migrate import Migrate
+from blog.security import flask_bcrypt
 
 def create_app() -> Flask:
     app = Flask(__name__)
@@ -19,3 +20,4 @@ db.init_app(app)
 cfg_name = os.environ.get("CONFIG_NAME") or "ProductionConfig"
 app.config.from_object(f"blog.configs.{cfg_name}")
 migrate = Migrate(app, db)
+flask_bcrypt.init_app(app)
